@@ -157,6 +157,7 @@ Static Analysis
 
 Our randomly generated group name: **Extravagant Dragon Monkeys**
 
-- Jason Parker - V00857251
-- Jeremy Kormish - V00775548
-- Purvika Dutt - V00849852
+- Purvika Dutt
+- Jason Parker
+- Jeremy Kormish
+
