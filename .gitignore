@@ -1,0 +1,15 @@
+.env
+coverage
+node_modules
+dist
+bin
+
+*.log
+*.csv
+*.dat
+*.out
+
+.DS_Store
+Thumbs.db
+
+mongo_data

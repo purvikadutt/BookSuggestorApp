@@ -1,0 +1,23 @@
+extends layout
+block content
+  h1= title
+  main.main
+    .addBook
+      form.form.form--addBook(method='post', action='/addBook')
+        .form__group
+          label.form__label(for='title') Title
+          input#title.form__input(type='text', name='title', required)
+        .form__group.ma-bt-md
+          label.form__label(for='author') Author
+          input#author.form__input(type='text', name='author', required)
+        .form__group.ma-bt-md
+          label.form__label(for='cover') Cover Img Src
+          input#cover.form__input(type='text', name='cover')  
+        .form__group.ma-bt-md
+          label.form__label(for='isbn') ISBN
+          input#isbn.form__input(type='number', name='isbn' required)
+        .form__group.ma-bt-md
+          label.form__label(for='synopsis') Synopsis
+          input#synopsis.form__input(type='text', name='synopsis' required)       
+        .form__group
+          input.btn.btn--green(type='submit')

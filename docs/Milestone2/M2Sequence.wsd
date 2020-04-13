@@ -1,0 +1,52 @@
+@startuml Sequence Diagram: User posts comments to book
+
+'Participants
+actor User
+participant CollectionView
+participant BookView
+participant BookController
+participant CommentController
+participant CommentModel
+participant BookModel
+database MongoDB
+
+
+User -> CollectionView : ClickEvent(On Book)
+User <- BookView : Changes View To Book
+BookView -> BookController : GetBookInstance(BookID)
+BookController -> BookModel: Instructs Model to load Book
+BookView -> BookController: GetCommentsForBook(BookID)
+BookController -> BookModel: Instructs Model to load Comments
+activate MongoDB
+BookModel -> MongoDB: Load(BookID)
+BookModel -> MongoDB: FetchComments(BookID)
+deactivate MongoDB
+return BookData & Comments
+
+BookModel -> BookController: Notify that BookModel is Ready
+BookController -> BookModel: Ask for Book Data
+return BookData/Comments
+
+BookController -> BookView: Pass BookData & Comments to Update Page
+
+BookView -> User: Display new BookView to User
+
+activate User
+User -> User: Type Comment
+User -> BookView: ClickSubmit(Comment)
+deactivate User
+
+BookView -> CommentController: SaveNewComment(BookID,Text)
+CommentController -> CommentModel: Tell Model to save comment
+CommentModel -> MongoDB: saveComment(BookID,Text)
+
+activate MongoDB
+return Success
+deactivate MongoDB
+
+CommentController -> BookView: Notify Comment was Saved
+BookView -> BookModel: Ask for Updated Model
+return Updated BookModel
+
+BookView -> User: Dispaly updated BookView to User
+@enduml

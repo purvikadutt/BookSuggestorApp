@@ -1,0 +1,35 @@
+extends layout
+block content
+  h1= title
+  p #{message}
+  if data.length == 0
+    p No books yet, add some to get started!
+  else
+    .collageContent
+      block dataView
+        each book in data
+          .bookContainer
+            .coverContainer
+              img.collageCover(src=book.cover alt="Book Cover")
+            .infoContainer
+              a(class="title", href="/book/" + book._id) #{book.title}
+              .author #{book.author}
+              .synopsis #{book.synopsis}
+              .isbn #{book.isbn}
+          br
+    .pagenation
+    a(class= "leftArrow", href = urlPath + (pageNumber -1)) #{'<'}
+    .pageNumber
+        if totalPages - pageNumber >= 5
+          a(class = "pageNumber currentPage", href = urlPath + pageNumber) #{pageNumber}
+          a(class = "pageNumber", href = urlPath + (pageNumber + 1)) #{pageNumber + 1}
+          a(class = "pageNumber", href = urlPath + (pageNumber + 2)) #{pageNumber + 2}
+          .pageNumberPlaceholder ...
+          a(class = "pageNumber", href = urlPath + (totalPages)) #{totalPages}
+        else
+          - for (var i = 1; i < pageNumber; i++)
+              a(class = "pageNumber", href = urlPath + i) #{i}
+          a(class = "pageNumber currentPage", href = urlPath + pageNumber) #{pageNumber}
+          - for (var i = pageNumber + 1; i <= totalPages; i++)
+              a(class = "pageNumber", href = urlPath + i) #{i}
+    a(class= "leftArrow", href = urlPath + (pageNumber + 1)) #{'>'}

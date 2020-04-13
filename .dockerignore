@@ -1,0 +1,18 @@
+# documentation and settings
+.vscode
+coverage
+docs
+*.md
+
+# docker files
+.dockerignore
+Dockerfile*
+docker-compose*
+
+# miscelanious
+.DS_Store
+.git
+.travis.yml
+.gitignore
+node_modules
+mongo_data

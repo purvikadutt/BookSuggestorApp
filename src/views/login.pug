@@ -1,0 +1,12 @@
+extends layout
+block content
+  //- p= message
+  main.main
+    .login
+      h1.heading-secondary.ma-bt-lg Login to Booker
+      form.form.form--login(method='post', action='/login')
+        .form__group
+          label.form__label(for='userName') User Name:
+          input#title.form__input(type='text', name='userName', required)
+          input.btn.btn--green(type='submit' value='Login')
+      h4 Valid users are: jason, admin, test1, test, jeremy, purvika

@@ -1,0 +1,32 @@
+extends layout
+block content
+  h1= title
+  p= message
+  main.main
+    .addReview
+      if fromBook
+        h2.heading-secondary.ma-bt-lg Add review for #{book.title}
+      else
+        h2.heading-secondary.ma-bt-lg Add review for book
+      form.form.form--addReview(method='post', action='/addReview')
+        .form__group
+          if fromBook
+            input(type='hidden' name='bookId' value=book.id)
+            input(type='hidden' name='bookTitle' value=book.title)
+            p #{book.title}
+          else
+            label.form__label(for='bookTitle') Book Title
+              input#title.form__input(type='text', name='bookTitle' required)
+
+        .form__group.ma-bt-md
+          label.form__label(for='review') Review
+          input(type='textarea' name='review' required)
+        .form__group.ma-bt-md
+          label.form__label(for='rating') Rating
+          each val in [1, 2, 3, 4, 5]
+            if fromBook && book.rating == val
+              input(type='radio' name='rating' value=val checked)
+            else
+              input(type='radio' name='rating' value=val)
+        .form__group
+          input.btn.btn--green(type='submit', value='Submit Review!')

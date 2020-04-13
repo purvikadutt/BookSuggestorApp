@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    height: 100vh;
+}
+
+.main {
+    background-color: #ddd;
+    padding: 20px;
+    margin: 0px;
+    height: 100vh;
+}
+
+.navbar {
+    height: 50px;
+    background-color: #444;
+    overflow: hidden;
+    padding: 0px 20px 0px 10px;
+}
+
+.navbar > .navbar-header {
+    display: inline;
+}
+
+.navbar > a {
+    display: inline-block;
+    font-size: 22px;
+    color: #fff;
+    padding: 10px 10px 10px 10px;
+}
+
+.navbar > .navbar-links {
+    float: right;
+    font-size: 18px;
+}
+
+.navbar > .navbar-links > a {
+    display: inline-block;
+    padding: 15px 10px 15px 10px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar a:hover {
+    background-color: rgb(61, 117, 110);
+}
+
+.bookContainer {
+    height: 100px;
+    padding-bottom: 10px;
+}
+
+.coverContainer {
+    float: left;
+}
+
+.collageCover {
+    width: 98px;
+    height: 98px;
+}
+
+.cover {
+    height: 400px;
+    width: auto;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.author {
+    font-style: italic;
+}
+
+.synopsis {
+    height: 50px;
+}
+
+.pageNumber {
+    display: inline-block;
+    padding: 5px;
+}
+
+.currentPage {
+    font-weight: bold;
+}

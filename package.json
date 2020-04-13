@@ -1,0 +1,129 @@
+{
+    "name": "Booker",
+    "version": "0.0.1",
+    "description": "A Node.js express app for managing user libraries of books.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/seng350/seng350f19-project-2-2"
+    },
+    "author": "Jason Parker <jasparke@uvic.ca>",
+    "contributors": [
+        "Jeremy Kormish",
+        "Puvrika Dutt"
+    ],
+    "private": true,
+    "scripts": {
+        "start": "npm run server",
+        "server": "node dist/server",
+        "server-debug": "node --inspect dist/server",
+        "build": "npm run build-ts && npm run copy-static",
+        "build-clean": "rm -rf dist && npm run build",
+        "build-docker": "npm run build-clean && docker build -t server .",
+        "dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+        "build-ts": "tsc",
+        "watch-ts": "tsc -w",
+        "watch-node": "nodemon",
+        "watch-node-debug": "nodemon --inspect",
+        "copy-static": "copyfiles -u 1 src/public/**/* src/views/**/* dist",
+        "test": "jest --forceExit --coverage",
+        "testv": "jest --forceExit --coverage --verbose",
+        "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+        "lint:report": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix -f node_modules/eslint-html-reporter/reporter.js -o ./coverage/StaticReport.html",
+        "mongo:start": "docker-compose start mongo",
+        "mongo:stop": "docker-compose stop mongo"
+    },
+    "nodemonConfig": {
+        "ext": "js,ts,pug,css",
+        "watch": [
+            "./dist",
+            "./src/views",
+            "./src/public"
+        ],
+        "ignore": [
+            "./test",
+            "./docs",
+            "./coverage",
+            "./node_modules",
+            "./dist/views",
+            "./dist/public"
+        ],
+        "delay": "2",
+        "exec": "npm run copy-static && node dist/server"
+    },
+    "jest": {
+        "globals": {
+            "ts-jest": {
+                "tsConfig": "tsconfig.json",
+                "diagnostics": {
+                    "warnOnly": true
+                }
+            }
+        },
+        "moduleFileExtensions": [
+            "ts",
+            "js"
+        ],
+        "transform": {
+            "^.+\\.(ts|tsx)$": "ts-jest"
+        },
+        "testMatch": [
+            "**/test/**/*.test.(ts|js)"
+        ],
+        "testEnvironment": "node",
+        "preset": "@shelf/jest-mongodb",
+        "coverageThreshold": {
+            "./src/models/": {
+                "functions": 75,
+                "statements": 75
+            }
+        }
+    },
+    "dependencies": {
+        "@types/express-session": "^1.15.15",
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "errorhandler": "^1.5.1",
+        "express": "~4.16.1",
+        "express-session": "^1.17.0",
+        "http-errors": "~1.6.3",
+        "mongo": "^0.1.0",
+        "mongodb": "^3.3.3",
+        "morgan": "~1.9.1"
+    },
+    "devDependencies": {
+        "@shelf/jest-mongodb": "^1.1.3",
+        "@types/body-parser": "^1.17.1",
+        "@types/cookie-parser": "^1.4.2",
+        "@types/errorhandler": "0.0.32",
+        "@types/express": "^4.17.1",
+        "@types/jest": "^24.0.19",
+        "@types/mongodb": "^3.3.6",
+        "@types/morgan": "^1.7.37",
+        "@types/node": "^12.11.1",
+        "@types/shelljs": "^0.8.5",
+        "@types/supertest": "^2.0.8",
+        "@typescript-eslint/eslint-plugin": "^2.5.0",
+        "@typescript-eslint/parser": "^2.5.0",
+        "concurrently": "^5.0.0",
+        "copyfiles": "^2.1.1",
+        "eslint": "^6.5.1",
+        "eslint-config-airbnb": "^18.0.1",
+        "eslint-config-prettier": "^6.4.0",
+        "eslint-html-reporter": "^0.7.4",
+        "eslint-import-resolver-typescript": "^2.0.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-json": "^2.0.1",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.1",
+        "eslint-plugin-react": "^7.16.0",
+        "jest": "^24.9.0",
+        "nodemon": "^1.19.4",
+        "prettier": "^1.19.1",
+        "pug": "^2.0.4",
+        "supertest": "^4.0.2",
+        "ts-jest": "^24.1.0",
+        "ts-node": "^8.4.1",
+        "tslint": "^5.20.0",
+        "typescript": "^3.6.4"
+    }
+}

@@ -1,0 +1,45 @@
+@startuml
+Models -left-> MongoDB : gets/updates
+Express -down-> Controllers : chooses
+Controllers-> Models : create/instruct
+Models -down-> PugTemplates :send data
+PugTemplates -left-> Controllers: ask for data to display
+UserInterface -left-> Express : request sent
+PugTemplates -right-> UserInterface : display page
+
+package MongoDB <<database>> {
+class Database
+}
+
+package Express <<rectangle>> {
+class Router
+}
+
+package Controllers <<rectangle>> {
+class BookController
+class CollectionController
+class CatalogueController
+}
+
+package Models <<rectangle>> {
+class User
+class Book
+class Rating
+class Review
+class Comment
+class Catalogue
+class Collection
+}
+
+package PugTemplates <<rectangle>> {
+class BookView
+class SingleCollectionView
+class AllCollectionsView
+class EditCollectionView
+class CatalogueView
+class AddBookView
+}
+
+package UserInterface <<rectangle>> {
+}
+@enduml

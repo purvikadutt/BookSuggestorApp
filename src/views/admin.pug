@@ -1,0 +1,26 @@
+extends layout
+block content
+  h1= "Admin"
+  h2 #{message}
+  .userlist
+    block userData
+      h2 User List
+      each user in users
+        .infoContainer
+          .username #{user.userName} 
+  .reviews
+    block reviewData
+      h2 Reported Reviews
+      each review in reviews
+        .infoContainer
+            .bookTitle Book Title: #{review.bookTitle}
+            .username Poster: #{review.username}
+            .review Content: #{review.review}
+            .rating Rating:: #{review.rating}
+            .reportedList Reported by #{review.reportedBy.length} users:
+            each report in review.reportedBy
+              .report #{report}
+            a(class= "deleteReview", href = "/deleteReview/" + (review.id)) delete this review
+
+
+  

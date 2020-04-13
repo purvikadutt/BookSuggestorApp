@@ -1,0 +1,111 @@
+@startuml ModelClassDiagram
+
+class Book {
+    id: int <<generated>>
+    isbn: int
+    title: string
+    author: string
+    synopsis: string
+    date_added: date
+    date_published: date
+    cover_img: string
+
+    createBook()
+    modifyBook()
+    deleteBook()
+    fetchBookData()
+    fetchComments()
+}
+
+class Rating {
+    id: int <<generated>>
+    book_id: int
+    user_id: int
+    rating: int
+
+    createRating()
+    modifyRating()
+}
+
+class Catalogue {
+    
+}
+
+class Collection {
+    id: int <<generated>>
+    user_id: int
+    title: string
+    --
+    .. Update Collection ..
+    createCollection()
+    renameCollection()
+    deleteCollection()
+
+    .. Manage Collection ..
+    addBookToCollection()
+    removeBookFromCollection()
+}
+
+' text based book review
+class Review {
+    id: int <<generated>>
+    rating_id: int
+    date: date
+    content: string
+    reported: boolean
+    --
+    createReview()
+    modifyReview()
+    reportReview()
+
+    .. Privileged Methods ..
+    deleteReview()
+}
+
+class User {
+    id: int <<generated>>
+    name: string
+    role: UserRole
+
+    --
+    register()
+    login()
+
+    .. Privileged Methods ..
+    deleteUser()
+    createUser()
+    renameUser()
+}
+
+enum UserRole {
+    USER
+    ADMIN
+}
+
+class Comment {
+    id: int <<generated>>
+    user_id: int
+    book_id: int
+    date: date
+    text: string
+    reported: boolean
+    --
+    createComment()
+    reportComment()
+
+    .. Privileged Methods ..
+    deleteComment()
+}
+
+User "1" *-- "0..*" Collection : Owns
+User "1" *-- "0..*" Comment: posts
+User "1" *-- "0..*" Rating
+
+Collection "0..*" o-- "0..*" Book : contains
+Comment "0..*" --* "1" Book: about
+Book "1" *-- "0..*" Rating
+Rating "1" *-- "0..1" Review
+
+Catalogue "1" *-- "all" Book : part of
+
+@enduml

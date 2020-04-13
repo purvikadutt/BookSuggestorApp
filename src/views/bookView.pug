@@ -1,0 +1,43 @@
+extends layout
+block content
+  h1= title
+  h2 #{book.author}
+  h2 (#{book.rating} / 5 with #{book.rates} votes)
+  form(class='rating' method='POST' action='/rate')
+    input(type='hidden' name='bookId' value=book.id)
+    input(type='hidden' name='bookTitle' value=book.title)
+    each val in [1, 2, 3, 4, 5]
+      label(for)
+      if myRating == val
+        input(type='radio' id='rating'+val name='rating' value=val checked)
+      else
+        input(type='radio' id='rating'+val name='rating' value=val)
+    input.btn.btn--green(type='submit' name='action' value='Rate')
+    input.btn.btn--green(type='submit' name='action' value='Review' formaction="/addReview" formmethod='GET')
+
+  .bookContainer
+    .coverContainer
+      img.cover(src=book.cover alt="Book Cover")
+    br
+    .infoContainer
+      .synopsis #{book.synopsis}
+      .isbn #{book.isbn}
+
+  form(class='addtocol' method='POST' action='/collection')
+    input(type='hidden' name='bookId' value=book.id)
+    select(name='colId')
+      each val in myCollections
+        option(value=val._id) #{val.name}
+    input(type='submit', value='Add To Collection')
+
+  .commentContainer
+    form(class='comment' method='POST' action='/comment')
+      input(type='hidden' name='bookId' value=book.id)
+      input(type='text' name='content' required)
+      input.btn.btn--green(type='submit' value='Comment')
+    .commentsContainer
+      each comment in book.comments
+        .infoContainer
+          .username By #{comment.userId} on #{comment.date}
+          .content #{comment.content}
+        br

@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    block head
+      title=title
+      link(rel='stylesheet', href='/stylesheets/style.css')
+      link(href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
+  body
+    div(class='navbar')
+      a(href="/")
+        span(class="icon")
+          i.fa.fa-book  BOOKER
+      div(class='navbar-links')
+        //- a(href="/book") Book
+        //- a(href="/collections") Collections
+        a(href="/catalogue") Catalogue
+        a(href="/collections") Collections
+        a(href="/addBook") Add Book
+        a(href='/addReview') Add Review
+        a(href='/reviews') Reviews
+        if session.loggedin
+          a(href="/logout") Logout #{session.user}
+          if session.user == 'admin'
+            a(href="/admin") Admin
+        else
+          a(href="/login") Login
+    div(class='main')
+      block content

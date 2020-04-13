@@ -1,0 +1,28 @@
+extends layout
+block content
+  h1= title
+  form(class='newcol' method='POST' action='/collections')
+    label.form__label(for='collectionname') Create a new collection:
+    input(type='text', name='collectionname', required)
+    input(type='submit', value='Go!')
+  h2 Your Collections
+  each col in collections
+    if col.user == session.userid
+      .colContainer
+        a(href='/collection/'+col._id) #{col.name}
+  br
+  h2 All Collections
+  each col in collections
+    if col.user != session.userid
+      .colContainer
+        a(href='/collection/'+col._id) #{col.name}
+  
+//-   [
+//- [Node]     {
+//- [Node]       _id: 5de6a22555292b58275fc709,
+//- [Node]       name: 'First Collection',
+//- [Node]       user: '5ddf069328f20b44e3872191'
+//- [Node]     }
+//- [Node]   ]
+
+  

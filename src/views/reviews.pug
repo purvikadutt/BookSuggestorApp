@@ -1,0 +1,33 @@
+extends layout
+block content
+  h1= "Reviews"
+  p #{message}
+  p The book title must match exactly. Try hitting review from the books page :)
+  .reviews
+    block dataView
+      each review in reviews
+        .infoContainer
+          a(class= "bookLink", href = "/book/" + review.bookId) #{review.bookTitle}
+          .username User: #{review.username}
+          .rating Rating: #{review.rating} / 5
+          .review #{review.review}
+          a(class= "reportButton", href = "/report/" + (review.id) + "/" + pageNumber) report
+        br
+  .pagenation
+   a(class= "leftArrow", href = "/reviews/" + (pageNumber - 1)) #{'<'}
+   .pageNumber
+      if totalPages - pageNumber >= 5
+        a(class = "pageNumber currentPage", href = "/reviews/" + pageNumber) #{pageNumber}
+        a(class = "pageNumber", href = "/reviews/" + (pageNumber + 1)) #{pageNumber + 1}
+        a(class = "pageNumber", href = "/reviews/" + (pageNumber + 2)) #{pageNumber + 2}
+        .pageNumberPlaceholder ...
+        a(class = "pageNumber", href = "/reviews/" + (totalPages)) #{totalPages}
+      else
+        - for (var i = 1; i < pageNumber; i++)
+            a(class = "pageNumber", href = "/reviews/" + i) #{i}
+        a(class = "pageNumber currentPage", href = "/reviews/" + pageNumber) #{pageNumber}
+        - for (var i = pageNumber + 1; i <= totalPages; i++)
+            a(class = "pageNumber", href = "/reviews/" + i) #{i}
+   a(class= "leftArrow", href = "/reviews/" + (pageNumber + 1)) #{'>'}
+
+  
